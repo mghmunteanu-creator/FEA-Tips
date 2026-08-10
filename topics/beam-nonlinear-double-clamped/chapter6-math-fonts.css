@@ -1,0 +1,79 @@
+@font-face {
+  font-display: block;
+  font-family: KaTeX_AMS;
+  font-style: normal;
+  font-weight: 400;
+  src: url("/FEA-Tips/assets/KaTeX_AMS-Regular-BQhdFMY1.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: block;
+  font-family: KaTeX_Main;
+  font-style: normal;
+  font-weight: 400;
+  src: url("/FEA-Tips/assets/KaTeX_Main-Regular-B22Nviop.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: block;
+  font-family: KaTeX_Main;
+  font-style: italic;
+  font-weight: 400;
+  src: url("/FEA-Tips/assets/KaTeX_Main-Italic-NWA7e6Wa.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: block;
+  font-family: KaTeX_Main;
+  font-style: normal;
+  font-weight: 700;
+  src: url("/FEA-Tips/assets/KaTeX_Main-Bold-Cx986IdX.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: block;
+  font-family: KaTeX_Main;
+  font-style: italic;
+  font-weight: 700;
+  src: url("/FEA-Tips/assets/KaTeX_Main-BoldItalic-DxDJ3AOS.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: block;
+  font-family: KaTeX_Math;
+  font-style: italic;
+  font-weight: 400;
+  src: url("/FEA-Tips/assets/KaTeX_Math-Italic-t53AETM-.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: block;
+  font-family: KaTeX_Math;
+  font-style: italic;
+  font-weight: 700;
+  src: url("/FEA-Tips/assets/KaTeX_Math-BoldItalic-CZnvNsCZ.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: block;
+  font-family: KaTeX_Size1;
+  font-style: normal;
+  font-weight: 400;
+  src: url("/FEA-Tips/assets/KaTeX_Size1-Regular-mCD8mA8B.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: block;
+  font-family: KaTeX_Size2;
+  font-style: normal;
+  font-weight: 400;
+  src: url("/FEA-Tips/assets/KaTeX_Size2-Regular-Dy4dx90m.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: block;
+  font-family: KaTeX_Size4;
+  font-style: normal;
+  font-weight: 400;
+  src: url("/FEA-Tips/assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2") format("woff2");
+}
