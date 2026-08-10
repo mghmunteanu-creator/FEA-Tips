@@ -81,6 +81,9 @@ Consult this checklist at the beginning of every FEA Tips task. Explicit instruc
 - Preserve aspect ratio and image quality.
 - Choose display size primarily from the readability and visual scale of letters, symbols, and annotations inside the figure.
 - Do not enlarge figures unnecessarily.
+- Figure captions must be left-aligned like normal body text and must never be justified or stretched across the available width.
+- Mathematical expressions inside captions use normal mathematical weight and normal character spacing. Scalar quantities must not be bold. Bold mathematical notation is reserved for cases where it is mathematically required, such as vectors or matrices.
+- The caption label, such as **Figure 7.**, may remain bold.
 
 ## O. Branding
 

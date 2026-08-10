@@ -77,3 +77,23 @@
   font-weight: 400;
   src: url("/FEA-Tips/assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2") format("woff2");
 }
+
+.article-main .figure figcaption {
+  text-align: left;
+  text-align-last: auto;
+}
+
+.article-main .figure figcaption .math-inline,
+.article-main .figure figcaption .math-inline span {
+  margin-right: 0;
+  color: inherit;
+  font-weight: 400;
+  letter-spacing: normal;
+}
+
+.article-main .figure figcaption i,
+.article-main .figure figcaption sub,
+.article-main .figure figcaption sup {
+  font-weight: 400;
+  letter-spacing: normal;
+}
