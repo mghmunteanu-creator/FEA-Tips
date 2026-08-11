@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" href="/FEA-Tips/figures/total-lagrangian-beam-structures/coordinate-frames.png" as="image"/><link rel="preload" href="/FEA-Tips/figures/total-lagrangian-beam-structures/axial-force.png" as="image"/><link rel="preload" href="/FEA-Tips/figures/total-lagrangian-beam-structures/shear-force.png" as="image"/><link rel="preload" href="/FEA-Tips/figures/total-lagrangian-beam-structures/bending-moment.png" as="image"/><link rel="preload" href="/FEA-Tips/figures/total-lagrangian-beam-structures/mattiasson-benchmark.png" as="image"/><link rel="preload" href="/FEA-Tips/figures/total-lagrangian-beam-structures/circular-beam-example.png" as="image"/><link rel="preload" href="/FEA-Tips/figures/total-lagrangian-beam-structures/mattiasson-results.png" as="image"/><link rel="stylesheet" href="/FEA-Tips/assets/index-I1t11CXJ.css" data-rsc-css-href="/FEA-Tips/assets/index-I1t11CXJ.css" data-precedence="vite-rsc/importer-resources"/><title>7.2 Beam Structures | FEA Tips</title><meta name="description" content="Total Lagrangian formulation for planar structures assembled from two-node isoparametric Timoshenko beam elements."/><meta property="og:title" content="FEA Tips — Finite Element Theory &amp; MATLAB Programs"/><meta property="og:description" content="Scientific notes, finite element formulations, worked examples, and MATLAB programs."/><meta property="og:type" content="website"/><meta property="og:image" content="https://fea-tips-munteanu.mgh-munteanu.chatgpt.site/og.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="FEA Tips — Finite Element Theory &amp; MATLAB Programs"/><meta name="twitter:description" content="Scientific notes, finite element formulations, worked examples, and MATLAB programs."/><meta name="twitter:image" content="https://fea-tips-munteanu.mgh-munteanu.chatgpt.site/og.png"/><link rel="shortcut icon" href="/FEA-Tips/favicon.svg"/><link rel="icon" href="/FEA-Tips/favicon.svg"/>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" href="/FEA-Tips/figures/total-lagrangian-beam-structures/coordinate-frames.png" as="image"/><link rel="preload" href="/FEA-Tips/figures/total-lagrangian-beam-structures/axial-force.png" as="image"/><link rel="preload" href="/FEA-Tips/figures/total-lagrangian-beam-structures/shear-force.png" as="image"/><link rel="preload" href="/FEA-Tips/figures/total-lagrangian-beam-structures/bending-moment.png" as="image"/><link rel="preload" href="/FEA-Tips/figures/total-lagrangian-beam-structures/mattiasson-benchmark.png" as="image"/><link rel="preload" href="/FEA-Tips/figures/total-lagrangian-beam-structures/circular-beam-example.png" as="image"/><link rel="preload" href="/FEA-Tips/figures/total-lagrangian-beam-structures/mattiasson-results.png" as="image"/><link rel="stylesheet" href="/FEA-Tips/assets/index-CbwIghIT.css" data-rsc-css-href="/FEA-Tips/assets/index-CbwIghIT.css" data-precedence="vite-rsc/importer-resources"/><title>7.2 Beam Structures | FEA Tips</title><meta name="description" content="Total Lagrangian formulation for planar structures assembled from two-node isoparametric Timoshenko beam elements."/><meta property="og:title" content="FEA Tips — Finite Element Theory &amp; MATLAB Programs"/><meta property="og:description" content="Scientific notes, finite element formulations, worked examples, and MATLAB programs."/><meta property="og:type" content="website"/><meta property="og:image" content="https://fea-tips-munteanu.mgh-munteanu.chatgpt.site/og.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="FEA Tips — Finite Element Theory &amp; MATLAB Programs"/><meta name="twitter:description" content="Scientific notes, finite element formulations, worked examples, and MATLAB programs."/><meta name="twitter:image" content="https://fea-tips-munteanu.mgh-munteanu.chatgpt.site/og.png"/><link rel="shortcut icon" href="/FEA-Tips/favicon.svg"/><link rel="icon" href="/FEA-Tips/favicon.svg"/>
 </head><body><style>
         @font-face {
           font-display: block;
@@ -64,7 +64,7 @@
           src: url("/FEA-Tips/assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2") format("woff2"),
                url("/assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2") format("woff2");
         }
-        .chapter7-2-page .chapter7-2-figure-1 { max-width: 780px; }
+        .chapter7-2-page .chapter7-2-figure-1 { max-width: 600px; }
         .chapter7-2-page .chapter7-2-figure-2 { max-width: 860px; }
         .chapter7-2-page .chapter7-2-effort-grid {
           display: grid;
@@ -82,8 +82,13 @@
         .chapter7-2-page .chapter7-2-figure-4 { max-width: 610px; }
         .chapter7-2-page .chapter7-2-figure-5 { max-width: 920px; }
         .chapter7-2-page .figure figcaption {
-          text-align: left;
-          text-align-last: auto;
+          display: block;
+          width: 100%;
+          text-align: left !important;
+          text-align-last: left !important;
+          word-spacing: normal;
+          letter-spacing: normal;
+          white-space: normal;
         }
         .chapter7-2-page .figure figcaption .math-inline,
         .chapter7-2-page .figure figcaption .math-inline span,
@@ -93,6 +98,10 @@
           color: inherit;
           font-weight: 400;
           letter-spacing: normal;
+        }
+        .chapter7-2-page .figure figcaption .math-inline,
+        .chapter7-2-page .figure figcaption .math-inline span {
+          margin-right: 0;
         }
         @media (max-width: 820px) {
           .chapter7-2-page .chapter7-2-effort-grid { grid-template-columns: 1fr; }
