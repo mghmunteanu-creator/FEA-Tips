@@ -28,4 +28,4 @@ Example 1 is a 100 mm cantilever with a 5 mm x 1 mm rectangular cross-section, Y
 
 ## MATLAB compatibility
 
-Tested in MATLAB R2024a. The code uses standard MATLAB syntax and is expected to be compatible with newer MATLAB versions. No additional toolbox is required.
+Executed successfully in MATLAB 26.1 (R2026a) Update 4. All 100 load steps reached convergence; the final step required 4 Newton-Raphson iterations, with a convergence measure of approximately `4.61e-8`. The computed maximum rotation was approximately `6.26691 rad`. The code uses standard MATLAB syntax and is expected to be compatible with recent MATLAB versions. No additional toolbox is required.
