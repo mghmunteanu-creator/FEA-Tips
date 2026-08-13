@@ -45,8 +45,8 @@ The CST approximation produces a constant stress within each triangular element.
 
 ## MATLAB compatibility
 
-Tested in MATLAB 26.1.0.3312084 (R2026a) Update 4. The code uses standard MATLAB syntax and is expected to be compatible with recent MATLAB releases that provide the `turbo` colormap.
+Tested in MATLAB R2026a. The code uses standard MATLAB syntax and is expected to be compatible with recent MATLAB releases.
 
-## Colormap note
+## Colormap compatibility
 
-The original program used the `jet` colormap. In this revised version, `turbo` is used for improved visual perception while leaving all numerical results unchanged.
+`turbo` is available in MATLAB R2020b and later. For earlier MATLAB releases, replace `turbo` with `jet`. This affects visualization only and does not change the numerical results.
