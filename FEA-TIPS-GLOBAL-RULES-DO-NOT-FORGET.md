@@ -13,6 +13,7 @@ Consult this checklist at the beginning of every FEA Tips task. Explicit instruc
 - Keep braces continuous and correctly scaled; size parentheses and other delimiters proportionally to their contents.
 - Keep integral and summation symbols well proportioned and overbars correctly centered.
 - Long equations may remain on one line and use horizontal scrolling when necessary.
+- Use \(\mathcal{A}\) for the standard finite element assembly operator and explain it briefly and locally when useful: \(\mathcal{A}\) denotes the standard finite element assembly operator. Element quantities retain their established notation, including \(A_{el}\) for element area and \(\boldsymbol{k}_{el}\) for the element stiffness matrix; do not change those symbols merely to accommodate the assembly operator. This short explanation may be repeated so that each section remains reasonably self-contained; do not add a dedicated Nomenclature entry at this time.
 - Do not change global CSS or shared math-rendering components to solve a local problem without explicit approval.
 - Protect previously approved pages from visual regressions.
 
