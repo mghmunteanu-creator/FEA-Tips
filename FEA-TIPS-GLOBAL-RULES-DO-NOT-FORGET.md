@@ -92,7 +92,7 @@ Consult this checklist at the beginning of every FEA Tips task. Explicit instruc
 - Choose display size primarily from the readability and visual scale of letters, symbols, and annotations inside the figure.
 - Do not enlarge figures unnecessarily.
 - When a figure is the only figure on its row and is intentionally narrower than the content column, center it horizontally. Keep its caption left-aligned within the figure width.
-- Present the complete visual content of a figure inside a single white panel against the slightly darker page background. For a composite figure, the panel includes every visual component that belongs to the figure, such as an image together with adjacent equations, annotations, or explanatory labels.
+- Present the complete visual content of a figure inside a single white panel against the slightly darker page background. Delimit the panel with a thin, subtle, neutral-colored rectangular border with square corners. For a composite figure, the panel includes every visual component that belongs to the figure, such as an image together with adjacent equations, annotations, or explanatory labels.
 - Place the caption below the white figure panel. Figure captions must be left-aligned like normal body text, must never be justified or stretched, and must not extend beyond the width of the figure panel.
 - Mathematical expressions inside captions use normal mathematical weight and normal character spacing. Scalar quantities must not be bold. Bold mathematical notation is reserved for cases where it is mathematically required, such as vectors or matrices.
 - The caption label, such as **Figure 7.**, may remain bold.
