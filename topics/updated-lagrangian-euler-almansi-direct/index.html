@@ -1,5 +1,49 @@
 <!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/FEA-Tips/assets/index-BON8nLH5.css" data-rsc-css-href="/FEA-Tips/assets/index-BON8nLH5.css" data-precedence="vite-rsc/importer-resources"/><title>15.3. Direct Evaluation of Euler–Almansi Strains and Comparison of UL Approaches | FEA Tips</title><meta name="description" content="Direct Euler–Almansi strain evaluation, its equivalence with the transformed update, and a numerical comparison of Updated Lagrangian approaches."/><meta property="og:title" content="FEA Tips — Finite Element Theory &amp; MATLAB Programs"/><meta property="og:description" content="Scientific notes, finite element formulations, worked examples, and MATLAB programs."/><meta property="og:type" content="website"/><meta property="og:image" content="https://fea-tips-munteanu.mgh-munteanu.chatgpt.site/og.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="FEA Tips — Finite Element Theory &amp; MATLAB Programs"/><meta name="twitter:description" content="Scientific notes, finite element formulations, worked examples, and MATLAB programs."/><meta name="twitter:image" content="https://fea-tips-munteanu.mgh-munteanu.chatgpt.site/og.png"/><link rel="shortcut icon" href="/FEA-Tips/favicon.svg"/><link rel="icon" href="/FEA-Tips/favicon.svg"/>
-</head><body><header class="site-header"><div class="page-shell header-inner"><a href="/FEA-Tips/" class="brand" aria-label="FEA Tips home"><span class="brand-mark" aria-hidden="true"><span class="brand-mesh"><span></span><span></span><span></span><span></span></span></span><span><strong>FEA Tips</strong><small>Finite Element Theory &amp; MATLAB Programs</small></span></a><nav aria-label="Primary navigation"><a href="/FEA-Tips/#contents">Contents</a><a href="/FEA-Tips/introduction">Introduction</a><a href="/FEA-Tips/nomenclature-conventions">Nomenclature</a></nav></div></header><main class="article-main ul-direct-page"><style>
+<style id="fea-global-audit-1-16">
+/* Local Chapters 1–16 editorial/layout audit. */
+.scientific-article figcaption,
+.scientific-article .figure-group-caption {
+  font-size: 13px !important;
+  line-height: 1.32 !important;
+}
+.chapter-navigation[aria-label="Chapter navigation"] {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+  align-items: start !important;
+  column-gap: 24px !important;
+  width: 100% !important;
+}
+.chapter-navigation[aria-label="Chapter navigation"] > :first-child {
+  justify-self: start !important;
+  text-align: left !important;
+}
+.chapter-navigation[aria-label="Chapter navigation"] > :last-child {
+  justify-self: end !important;
+  text-align: right !important;
+}
+.assumption-grid:has(> :nth-child(4):last-child) {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+}
+@media (max-width: 720px) {
+  .chapter-navigation[aria-label="Chapter navigation"] {
+    grid-template-columns: 1fr !important;
+    row-gap: 14px !important;
+  }
+  .chapter-navigation[aria-label="Chapter navigation"] > :last-child {
+    justify-self: stretch !important;
+    text-align: right !important;
+  }
+  .chapter-navigation[aria-label="Chapter navigation"] a,
+  .chapter-navigation[aria-label="Chapter navigation"] > div {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+  }
+  .assumption-grid:has(> :nth-child(4):last-child) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+</style></head><body><header class="site-header"><div class="page-shell header-inner"><a href="/FEA-Tips/" class="brand" aria-label="FEA Tips home"><span class="brand-mark" aria-hidden="true"><span class="brand-mesh"><span></span><span></span><span></span><span></span></span></span><span><strong>FEA Tips</strong><small>Finite Element Theory &amp; MATLAB Programs</small></span></a><nav aria-label="Primary navigation"><a href="/FEA-Tips/#contents">Contents</a><a href="/FEA-Tips/introduction">Introduction</a><a href="/FEA-Tips/nomenclature-conventions">Nomenclature</a></nav></div></header><main class="article-main ul-direct-page"><style>
 .ul-direct-page .approach-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1.25rem 0 1.6rem}.ul-direct-page .approach-card{border:1px solid var(--border);border-radius:14px;padding:1rem 1.1rem;background:var(--surface)}.ul-direct-page .approach-card strong{display:block;margin-bottom:.35rem}.ul-direct-page .comparison-scroll{overflow-x:auto;margin:1.2rem 0 1.5rem}.ul-direct-page .comparison-table{width:100%;min-width:720px;border-collapse:collapse;font-size:.95rem}.ul-direct-page .comparison-table th,.ul-direct-page .comparison-table td{padding:.62rem .4rem;border:1px solid var(--border);text-align:center;vertical-align:middle}.ul-direct-page .comparison-table thead th{background:var(--surface-muted)}.ul-direct-page .method-cell{display:grid;gap:.18rem}.ul-direct-page .method-cell>span{display:block;white-space:nowrap}.ul-direct-page .average-table{max-width:720px;min-width:620px;margin-left:auto;margin-right:auto}.ul-direct-page .code-panel{position:relative;margin:1.15rem 0 1.5rem;border:1px solid var(--border);border-radius:14px;background:#0d2230;overflow:hidden}.ul-direct-page .code-panel pre{margin:0;padding:1.3rem 1.2rem;overflow-x:auto;color:#f4f7f9;font:500 .91rem/1.55 Consolas,"Courier New",monospace;tab-size:4}.ul-direct-page .copy-code{position:absolute;top:.65rem;right:.65rem;z-index:2;border:1px solid rgba(255,255,255,.35);border-radius:8px;padding:.35rem .7rem;background:#17394d;color:white;font:600 .78rem/1.2 system-ui;cursor:pointer}.ul-direct-page .verification-note{border-left:4px solid var(--rust);padding:.9rem 1rem;background:var(--surface-muted);margin:1.2rem 0}.ul-direct-page .chapter-navigation>span{display:flex;flex-direction:column;gap:.25rem;opacity:.72}.ul-direct-page .chapter-navigation>span small{text-transform:uppercase;letter-spacing:.08em}.ul-direct-page .math-display{max-width:100%}@media(max-width:780px){.ul-direct-page .approach-grid{grid-template-columns:1fr}.ul-direct-page .comparison-table{font-size:.9rem}.ul-direct-page .code-panel pre{font-size:.82rem}.ul-direct-page .scientific-article .math-display{overflow-x:auto}}
 </style>
 <div class="page-shell breadcrumb"><a href="/FEA-Tips/">Home</a><span aria-hidden="true">/</span><a href="/FEA-Tips/#contents">Chapter 15 · Updated Lagrangian Formulation (UL)</a><span aria-hidden="true">/</span><span>15.3</span></div>

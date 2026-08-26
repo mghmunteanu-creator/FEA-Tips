@@ -1,5 +1,49 @@
 <!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" href="/FEA-Tips/figures/exact-strains/infinitesimal-element-deformation.png" as="image"/><link rel="stylesheet" href="/FEA-Tips/assets/index-DuzqIIgT.css" data-rsc-css-href="/FEA-Tips/assets/index-DuzqIIgT.css" data-precedence="vite-rsc/importer-resources"/><title>Geometrical Derivation of the Exact Strain Relations | FEA Tips</title><meta name="description" content="A geometrical derivation connecting exact changes in length and angle to the Green–Lagrange strain components."/><meta property="og:title" content="FEA Tips — Finite Element Theory &amp; MATLAB Programs"/><meta property="og:description" content="Scientific notes, finite element formulations, worked examples, and MATLAB programs."/><meta property="og:type" content="website"/><meta property="og:image" content="https://fea-tips-munteanu.mgh-munteanu.chatgpt.site/og.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="FEA Tips — Finite Element Theory &amp; MATLAB Programs"/><meta name="twitter:description" content="Scientific notes, finite element formulations, worked examples, and MATLAB programs."/><meta name="twitter:image" content="https://fea-tips-munteanu.mgh-munteanu.chatgpt.site/og.png"/><link rel="shortcut icon" href="/FEA-Tips/favicon.svg"/><link rel="icon" href="/FEA-Tips/favicon.svg"/>
-</head><body><style>
+<style id="fea-global-audit-1-16">
+/* Local Chapters 1–16 editorial/layout audit. */
+.scientific-article figcaption,
+.scientific-article .figure-group-caption {
+  font-size: 13px !important;
+  line-height: 1.32 !important;
+}
+.chapter-navigation[aria-label="Chapter navigation"] {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+  align-items: start !important;
+  column-gap: 24px !important;
+  width: 100% !important;
+}
+.chapter-navigation[aria-label="Chapter navigation"] > :first-child {
+  justify-self: start !important;
+  text-align: left !important;
+}
+.chapter-navigation[aria-label="Chapter navigation"] > :last-child {
+  justify-self: end !important;
+  text-align: right !important;
+}
+.assumption-grid:has(> :nth-child(4):last-child) {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+}
+@media (max-width: 720px) {
+  .chapter-navigation[aria-label="Chapter navigation"] {
+    grid-template-columns: 1fr !important;
+    row-gap: 14px !important;
+  }
+  .chapter-navigation[aria-label="Chapter navigation"] > :last-child {
+    justify-self: stretch !important;
+    text-align: right !important;
+  }
+  .chapter-navigation[aria-label="Chapter navigation"] a,
+  .chapter-navigation[aria-label="Chapter navigation"] > div {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+  }
+  .assumption-grid:has(> :nth-child(4):last-child) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+</style></head><body><style>
         @font-face {
           font-display: block;
           font-family: KaTeX_AMS;

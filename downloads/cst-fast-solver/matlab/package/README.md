@@ -17,6 +17,11 @@ batched matrix products.
 The geometry, material, loading, constraints, and plotting routines remain
 those supplied in Section 9.1.
 
+For compatibility with the standard stress-postprocessing routine, the
+vectorized assembly programs also provide `DBt` in element-wise form. Thus,
+the same `plot_stress` routine can be used independently of the internal
+assembly strategy.
+
 ## Files in this package
 
 - `triang2d_fast.m` — vectorized CST solver and sparse assembly

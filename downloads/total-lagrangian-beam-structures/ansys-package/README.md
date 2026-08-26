@@ -22,3 +22,5 @@ Open ANSYS Mechanical APDL, read `macro.mac` as an input file, and solve the mod
 
 The macro has been inspected structurally and preserved without changes to its mechanics. It was not executed during preparation of this package; therefore no ANSYS version is claimed as tested.
 
+This macro was validated in the original version of the example. It has been transferred to the present edition without technical modification and was therefore not re-executed during the current revision.
+

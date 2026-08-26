@@ -12,3 +12,6 @@ The macro defines:
 - a total vertical force of 1000 N distributed over the right-edge nodes.
 
 The macro was inspected for consistency with the MATLAB model but was not executed during preparation of this package.
+
+This macro was validated in the original version of the example. It has been transferred to the present edition without technical modification and was therefore not re-executed during the current revision.
+

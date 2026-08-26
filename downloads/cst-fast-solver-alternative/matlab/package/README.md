@@ -17,6 +17,11 @@ matrices and using standard sparse matrix multiplication.
 The geometry, material, loading, constraints, and plotting routines remain
 those supplied in Section 9.1.
 
+For compatibility with the standard stress-postprocessing routine, the
+vectorized assembly programs also provide `DBt` in element-wise form. Thus,
+the same `plot_stress` routine can be used independently of the internal
+assembly strategy.
+
 ## Files in this package
 
 - `triang2d_fast2.m` — alternative sparse CST solver

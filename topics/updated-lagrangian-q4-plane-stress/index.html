@@ -1,5 +1,49 @@
 <!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" href="/FEA-Tips/figures/total-lagrangian-isoparametric/reference-configuration-comparison.png" as="image"/><link rel="preload" href="/FEA-Tips/figures/total-lagrangian-isoparametric/u-displacement.png" as="image"/><link rel="preload" href="/FEA-Tips/figures/total-lagrangian-isoparametric/epsilon-x.png" as="image"/><link rel="preload" href="/FEA-Tips/figures/total-lagrangian-isoparametric/sigma-x.png" as="image"/><link rel="preload" href="/FEA-Tips/figures/total-lagrangian-isoparametric/sigma-vm.png" as="image"/><link rel="preload" href="/FEA-Tips/figures/total-lagrangian-isoparametric/v-displacement.png" as="image"/><link rel="stylesheet" href="/FEA-Tips/assets/index-BON8nLH5.css" data-rsc-css-href="/FEA-Tips/assets/index-BON8nLH5.css" data-precedence="vite-rsc/importer-resources"/><title>15.1. Plane Stress: Isoparametric 4-Node Quadrilateral Finite Element | FEA Tips</title><meta name="description" content="Updated Lagrangian plane-stress formulation of an isoparametric 4-node quadrilateral finite element, with MATLAB and ANSYS comparison."/><meta property="og:title" content="FEA Tips — Finite Element Theory &amp; MATLAB Programs"/><meta property="og:description" content="Scientific notes, finite element formulations, worked examples, and MATLAB programs."/><meta property="og:type" content="website"/><meta property="og:image" content="https://fea-tips-munteanu.mgh-munteanu.chatgpt.site/og.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="FEA Tips — Finite Element Theory &amp; MATLAB Programs"/><meta name="twitter:description" content="Scientific notes, finite element formulations, worked examples, and MATLAB programs."/><meta name="twitter:image" content="https://fea-tips-munteanu.mgh-munteanu.chatgpt.site/og.png"/><link rel="shortcut icon" href="/FEA-Tips/favicon.svg"/><link rel="icon" href="/FEA-Tips/favicon.svg"/>
-</head><body><style>
+<style id="fea-global-audit-1-16">
+/* Local Chapters 1–16 editorial/layout audit. */
+.scientific-article figcaption,
+.scientific-article .figure-group-caption {
+  font-size: 13px !important;
+  line-height: 1.32 !important;
+}
+.chapter-navigation[aria-label="Chapter navigation"] {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+  align-items: start !important;
+  column-gap: 24px !important;
+  width: 100% !important;
+}
+.chapter-navigation[aria-label="Chapter navigation"] > :first-child {
+  justify-self: start !important;
+  text-align: left !important;
+}
+.chapter-navigation[aria-label="Chapter navigation"] > :last-child {
+  justify-self: end !important;
+  text-align: right !important;
+}
+.assumption-grid:has(> :nth-child(4):last-child) {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+}
+@media (max-width: 720px) {
+  .chapter-navigation[aria-label="Chapter navigation"] {
+    grid-template-columns: 1fr !important;
+    row-gap: 14px !important;
+  }
+  .chapter-navigation[aria-label="Chapter navigation"] > :last-child {
+    justify-self: stretch !important;
+    text-align: right !important;
+  }
+  .chapter-navigation[aria-label="Chapter navigation"] a,
+  .chapter-navigation[aria-label="Chapter navigation"] > div {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+  }
+  .assumption-grid:has(> :nth-child(4):last-child) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+</style></head><body><style>
         @font-face {
           font-display: block; font-family: KaTeX_AMS; font-style: normal; font-weight: 400;
           src: url("/FEA-Tips/assets/KaTeX_AMS-Regular-BQhdFMY1.woff2") format("woff2"), url("/assets/KaTeX_AMS-Regular-BQhdFMY1.woff2") format("woff2");
@@ -304,5 +348,5 @@ legend('Linear','1D analytical','Location','southeast')</code></pre></div>
 
 <section id="references"><p class="section-number">11</p><h2>References</h2><ol class="reference-list"><li id="reference-1"><p>Eleni Chatzi, <a href="https://ethz.ch/content/dam/ethz/special-interest/baug/ibk/structural-mechanics-dam/education/femII/Lecture3_2015.pdf" target="_blank" rel="noreferrer"><em>The Finite Element Method for the Analysis of Non-Linear and Dynamic Systems</em></a>, ETH Zürich, Lecture 3, 15 October 2015.</p></li></ol></section>
 
-<nav class="chapter-navigation" aria-label="Chapter navigation"><a href="/FEA-Tips/topics/cauchy-piola-kirchhoff-stress-tensors"><small>PREVIOUS CHAPTER</small><strong>← 14. Cauchy, First Piola–Kirchhoff, and Second Piola–Kirchhoff Stress Tensors</strong></a><a href="/FEA-Tips/topics/updated-lagrangian-q4-plane-stress-approach/"><small>NEXT SECTION</small><strong>15.2. Plane Stress: Isoparametric 4-Node Quadrilateral Finite Element — A Slightly Different Approach</strong></a></nav>
+<nav class="chapter-navigation" aria-label="Chapter navigation"><a href="/FEA-Tips/topics/cauchy-piola-kirchhoff-stress-tensors"><small>PREVIOUS CHAPTER</small><strong>← 14. Cauchy, First Piola–Kirchhoff, and Second Piola–Kirchhoff Stress Tensors</strong></a><a href="/FEA-Tips/topics/updated-lagrangian-q4-plane-stress-approach/"><small>NEXT SECTION</small><strong>15.2. Plane Stress: Isoparametric 4-Node Quadrilateral Finite Element — A Slightly Different Approach →</strong></a></nav>
 </article></div></main><footer class="site-footer"><div class="page-shell footer-inner"><div><strong>FEA Tips</strong><p>Finite element theory, numerical methods, and MATLAB programs.</p></div><div class="footer-links"><a href="/FEA-Tips/">Home</a><a href="/FEA-Tips/#contents">Contents</a><a href="/FEA-Tips/nomenclature-conventions">Nomenclature</a><a href="/FEA-Tips/topics/large-displacements-2d-truss">Section 1.1</a></div><p class="copyright">© 2026 Mircea Gh. Munteanu</p></div></footer><script src="/FEA-Tips/result-lightbox.js" defer></script><script>(()=>{const button=document.querySelector('[data-copy-matlab]');if(!button)return;const target=document.getElementById(button.dataset.copyTarget);if(!target)return;let timer;button.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(target.textContent||'');button.textContent='Copied!';clearTimeout(timer);timer=setTimeout(()=>{button.textContent='Copy'},1500)}catch{button.textContent='Copy failed';clearTimeout(timer);timer=setTimeout(()=>{button.textContent='Copy'},1500)}})})();</script></body></html>

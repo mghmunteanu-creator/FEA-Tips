@@ -31,8 +31,8 @@ DHooke(2,1,:)=nu*E1*Ath;
 DHooke(2,2,:)=E1*Ath;
 DHooke(3,3,:)=G*Ath;
 
-DB=multiprod(DHooke,B);
-kelt=reshape(multiprod(permute(B,[2 1 3]),DB),36,nel); % stiffness matrices of all finite elements
+DBt=multiprod(DHooke,B);
+kelt=reshape(multiprod(permute(B,[2 1 3]),DBt),36,nel); % stiffness matrices of all finite elements
 ipos0=[ngn*nodo1-1 ngn*nodo1 ngn*nodo2-1 ngn*nodo2 ngn*nodo3-1 ngn*nodo3]';
 ipos1=[ipos0; ipos0; ipos0; ipos0; ipos0; ipos0];
 ipos2=permute(reshape(ipos1,6,6,nel),[2 1 3]);
@@ -49,3 +49,4 @@ toc
 tic
 S=K\F;                                      % solving the linear system
 toc
+DBt = DBt./reshape(Ath,1,1,[]);

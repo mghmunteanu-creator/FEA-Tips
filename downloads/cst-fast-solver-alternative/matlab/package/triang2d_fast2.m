@@ -62,3 +62,8 @@ toc
 tic
 S=K\F;                                      % solve the linear system
 toc
+
+% Convert DB for use with standard plot_stress postprocessing
+ii=reshape(1:3*nel,3,1,nel)+(reshape(1:6*nel,1,6,nel)-1)*3*nel;
+DBt=reshape(full(DB(ii(:))),3,6,nel);
+DBt = DBt./reshape(Ath,1,1,[]);
