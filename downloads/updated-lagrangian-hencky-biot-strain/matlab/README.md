@@ -20,3 +20,5 @@ istrain=1;   % 1 - Hencky strain
 ```
 
 The programs were executed in MATLAB R2026a with both selector values. The example converged through all 20 load steps for both strain measures.
+
+`turbo` is available in MATLAB R2020b and later. For earlier MATLAB releases, replace `turbo` with `jet`. This affects visualization only and does not change the numerical results.

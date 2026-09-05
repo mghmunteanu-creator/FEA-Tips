@@ -68,3 +68,4 @@ elseif istress==3
 elseif istress==4
     title('\sigma_V_M')
 end
+drawnow

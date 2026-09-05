@@ -59,7 +59,7 @@ figure(14+istrain)
 clf
 hold on
 axis('equal')
-colormap(jet(16))
+colormap(turbo(16))
 smx=max(strain);
 smn=min(strain);
 if iedge==0
@@ -79,3 +79,4 @@ elseif istrain==3
     sss='\gamma_x_y  -  Load step ';
 end
 title({[sss,num2str(istep)];['min= ',num2str(smn),'  max=',num2str(smx)]})
+drawnow

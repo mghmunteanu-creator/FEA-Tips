@@ -37,3 +37,4 @@ if idisp==1
 elseif idisp==2
     title('v')
 end
+drawnow

@@ -17,7 +17,7 @@ figure(9+idisp)
 clf
 hold on
 axis('equal')
-colormap(jet(16));
+colormap(turbo(16));
 disp=St(idisp:2:neq,istep+1);
 dmx=max(disp);
 dmn=min(disp);
@@ -36,4 +36,5 @@ elseif idisp==2
     sss='v  -  Load step ';
 end
 title({[sss,num2str(istep)];['min= ',num2str(dmn),'  max=',num2str(dmx)]})
+drawnow
 

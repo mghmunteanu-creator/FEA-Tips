@@ -10,6 +10,7 @@ strn  =zeros(2*nel,2,nstep+1);   % strains in Gauss points
 stress=zeros(2*nel,2,nstep+1);   % stresses in Gauss points
 figure(5), clf, hold on, grid on, axis('equal')
 plot(x/Lb,y/Lb,'k','linewidth',1)
+drawnow
 title('Deformed beam')
 xlabel('x/L_b')
 ylabel('y/L_b')
@@ -26,6 +27,7 @@ for istep=1:nstep
     end
     updt
     plot(x/Lb,y/Lb,'r','linewidth',1)
+    drawnow
     [istep iter error]
     St(:,istep+1)=St(:,istep)+S;
     pause(0.01)

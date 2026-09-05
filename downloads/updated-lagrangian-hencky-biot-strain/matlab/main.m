@@ -25,6 +25,7 @@ for istep=1:nstep
     x=x+S(1:2:neq);
     y=y+S(2:2:neq);
     patch('Vertices',[x y],'Faces',elem,'Facecolor',[1 1 1],'linewidth',0.75,'edgecolor','b')    
+    drawnow
     [istep iter error]
     St(:,istep+1)=St(:,istep)+S;
     pause(0.01)

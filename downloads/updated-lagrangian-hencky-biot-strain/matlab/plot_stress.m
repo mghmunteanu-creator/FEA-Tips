@@ -59,7 +59,7 @@ figure(19+istress)
 clf
 hold on
 axis('equal')
-colormap(jet(16))
+colormap(turbo(16))
 smx=max(stress);
 smn=min(stress);
 if iedge==0
@@ -81,3 +81,4 @@ elseif istress==4
     sss='\sigma_v_o_n_ _M_i_s_e_s  -  Load step ';
 end
 title({[sss,num2str(istep)];['min= ',num2str(smn),'  max=',num2str(smx)]})
+drawnow

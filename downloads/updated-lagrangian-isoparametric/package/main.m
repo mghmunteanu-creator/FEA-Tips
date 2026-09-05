@@ -10,6 +10,7 @@ strn  =zeros(nel,3,nstep+1);
 stress=zeros(nel,3,nstep+1);
 figure(5), clf, hold on, grid on, axis('equal')
 plot(x/Lb,y/Lb,'k','linewidth',1.5)
+drawnow
 %cl='k'; plt
 for istep=1:nstep
     S=zeros(neq,1);
@@ -24,6 +25,7 @@ for istep=1:nstep
     end
     updt
     plot(x/Lb,y/Lb,'k','linewidth',1.5)
+    drawnow
     %cl='b'; plt
     [istep iter error]
     St(:,istep+1)=St(:,istep)+S;

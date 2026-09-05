@@ -2,10 +2,10 @@
 
 iedge=0;    % iedge=1 - plot element contours
             % iedge=0 - does not plot         
-istress=input('Stress (1-sx, 2-sy, 3-txy, 4-VM): ');
+istress=input('Stress (1-sx, 2-sy, 3-txy, 4-VM, default 1): ');
 if length(istress)==0; istress=1; end
-scale=input('Displacement scale: ');
-if length(scale)==0; scale=1; end
+scale=input('Displacement scale (default 0): ');
+if length(scale)==0; scale=0; end
 u=S(1:ngn:neq);
 v=S(2:ngn:neq);
 Ht=[1  -1   0   0
@@ -78,3 +78,4 @@ elseif istress==3
 elseif istress==4
     title('\sigma_V_M')
 end
+drawnow

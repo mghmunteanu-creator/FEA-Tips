@@ -10,6 +10,7 @@ St=zeros(neq,nstep);
 stress=zeros(nel,3,nstep);
 figure(5), clf, hold on, grid on, axis('equal')
 plot(x/Rd,y/Rd,'k','linewidth',1.5)
+drawnow
 for istep=1:nstep
     error=1;
     iter=0;
@@ -21,6 +22,7 @@ for istep=1:nstep
         error=sqrt(dS'*dS/nnd);
     end
     plot((x+S(1:3:neq))/Rd,(y+S(2:3:neq))/Rd,'b','linewidth',1)
+    drawnow
     [istep iter error]
     St(:,istep+1)=S;
     pause(0.01)
