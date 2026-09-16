@@ -2,9 +2,9 @@
 
 iedge=0;    % iedge=1 - plot element contours
             % iedge=0 - do not plot element contours
-istress=input('Stress (1-sx, 2-sy, 3-txy, 4-VM, default 1): ');
+istress=input('Stress (1-sx, 2-sy, 3-txy, 4-VM) [Default: 1]: ');
 if length(istress)==0, istress=1, end
-scale=input('Displacement scale (default 0): ');
+scale=input('Displacement scale [Default: 0]: ');
 if length(scale)==0, scale=0, end
 u=S(1:ngn:neq);
 v=S(2:ngn:neq);

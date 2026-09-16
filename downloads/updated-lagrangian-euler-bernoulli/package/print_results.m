@@ -1,6 +1,6 @@
 %*** print_results ***
 % results: nodal displacements and efforts:
-ist=input('Number of the load step (default nstep): ');
+ist=input('Number of the load step [Default: nstep]: ');
 if length(ist)==0; ist=nstep; end
 disp(' ')
 disp(['Step number: ',num2str(ist)]);

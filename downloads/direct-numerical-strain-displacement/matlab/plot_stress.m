@@ -1,12 +1,12 @@
 % *** plot_stress ***
 iedge=0;    % iedge=1 - plot element contours
             % iedge=0 - does not plot
-istep=input('Load step (default=nstep): ');
+istep=input('Load step [Default: nstep]: ');
 if length(istep)==0; istep=nstep; end
-istress=input('Stress (1-sx, 2-sy, 3-txy, 4-VM) (default=1): ');
+istress=input('Stress (1-sx, 2-sy, 3-txy, 4-VM) [Default: 1]: ');
 if length(istress)==0; istress=1; end
 
-scale=input('Scale (default=1): ');
+scale=input('Scale [Default: 1]: ');
 if length(scale)==0; scale=1; end
 
 load_step=istep

@@ -1,4 +1,4 @@
-% *** main2 ***
+%*** main ***
 clear
 format short e
 gen

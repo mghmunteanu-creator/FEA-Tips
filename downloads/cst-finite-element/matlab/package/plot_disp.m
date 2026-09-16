@@ -2,9 +2,9 @@
 iedge=0;    % iedge=1 - plot element contours
             % iedge=0 - do not plot element contours
 
-idisp=input('Displacement (1-u, 2-v, default 1): ');
+idisp=input('Displacement (1-u, 2-v) [Default: 1]: ');
 if length(idisp)==0, idisp=1, end
-scale=input('Displacement scale (default 0): ');
+scale=input('Displacement scale [Default: 0]: ');
 if length(scale)==0, scale=0, end
 u=S(1:ngn:neq,1);
 v=S(2:ngn:neq,1);

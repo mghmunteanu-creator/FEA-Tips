@@ -15,5 +15,5 @@ ylabel('T [N]')
 figure(9), clf, hold on, grid on
 plot(s,strs(:,2),'linewidth',2)
 xlabel('s [mm]')
-ylabel('M [Nmm]') 
- 
+ylabel('M [Nmm]')
+drawnow

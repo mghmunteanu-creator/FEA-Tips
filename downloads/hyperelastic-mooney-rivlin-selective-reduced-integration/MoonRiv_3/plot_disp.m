@@ -1,11 +1,11 @@
 %*** plot_disp ***
 iedge=0;    % iedge=1 - plot element contours
             % iedge=0 - does not plot
-istep=input('Load step (default=nstep): ');   
+istep=input('Load step [Default: nstep]: ');   
 if length(istep)==0, istep=nstep; end
-idisp=input('Displacement (1-u, 2-v, default=2): ');
+idisp=input('Displacement (1-u, 2-v) [Default: 2]: ');
 if length(idisp)==0, idisp=2; end
-scale=input('Scale (default=1): ');
+scale=input('Scale [Default: 1]: ');
 if length(scale)==0, scale=1; end
 u=St(1:2:neq,istep+1);
 v=St(2:2:neq,istep+1);

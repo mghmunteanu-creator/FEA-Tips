@@ -3910,6 +3910,10 @@ const gd=document.querySelector('.plotly-graph-div');
 const initialCamera={"eye": {"x": -1.55, "y": -1.75, "z": 1.15}, "up": {"x": 0, "y": 0, "z": 1}, "center": {"x": 0, "y": 0, "z": 0}, "projection": {"type": "orthographic"}};
 Plotly.relayout(gd, {'scene.camera': initialCamera});
 let zoomEnabled=false;
+  function blockZoomGesture(event){event.preventDefault();event.stopImmediatePropagation();}
+  ['touchstart','touchmove'].forEach(function(type){window.addEventListener(type,function(event){if(!zoomEnabled&&event.touches.length>1)blockZoomGesture(event);},{capture:true,passive:false});});
+  ['gesturestart','gesturechange','gestureend'].forEach(function(type){window.addEventListener(type,function(event){if(!zoomEnabled)blockZoomGesture(event);},{capture:true,passive:false});});
+
 gd.addEventListener('wheel',function(e){
   if(!zoomEnabled){e.preventDefault();e.stopPropagation();}
 },{passive:false,capture:true});

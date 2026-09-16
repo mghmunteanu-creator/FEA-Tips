@@ -1,0 +1,38 @@
+/* Shared editorial conventions; scientific content and figure widths are unchanged. */
+#contents a.chapter-status[href],
+#contents a[href] .item-status:is(.status-live, .available) {
+  color: #2b628b !important;
+  text-decoration: underline !important;
+  text-underline-offset: .14em;
+}
+.scientific-article a:not(:where(nav a, .download-card, .download-card a, .button, .image-button, [data-result-lightbox], [data-round2-lightbox])),
+article :is(p, li, td, figcaption, blockquote) a:not(:where(nav a, .download-card, .download-card a)) {
+  color: #2b628b !important;
+  text-decoration: underline !important;
+  text-underline-offset: .14em;
+}
+.scientific-article figcaption {
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 13px !important;
+  line-height: 1.55 !important;
+  text-align: left !important;
+  letter-spacing: normal !important;
+}
+.scientific-article .reference-list {
+  list-style: decimal outside !important;
+  padding-left: 1.4rem !important;
+  margin: 1rem 0 1.5rem !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.65 !important;
+}
+.scientific-article .reference-list > li { margin: .5rem 0 !important; padding-left: .2rem !important; }
+.scientific-article .reference-list > li::before { content: none !important; }
+.uniform-lightbox-trigger { display: block; padding: 0; margin: 0 auto; border: 0; background: transparent; cursor: zoom-in; max-width: 100%; }
+.uniform-lightbox-trigger img { display: block; max-width: 100%; height: auto; }
+.tl-cst-page ~ .result-lightbox-overlay .round2-lightbox-content,
+.round2-lightbox-content { position: relative; background: white; cursor: default; }
+.round2-lightbox-content > img { display: block; width: 100%; height: auto; margin: 0; border: 0; }
+@media (max-width: 600px) {
+  .uniform-lightbox-trigger { max-width: 80%; }
+}

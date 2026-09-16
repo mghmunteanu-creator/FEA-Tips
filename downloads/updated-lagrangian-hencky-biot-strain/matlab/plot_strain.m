@@ -1,11 +1,11 @@
 %*** plot_strain ***
 iedge=0;    % iedge=1 - plot element contours
             % iedge=0 - does not plot
-istep=input('Load step (default=nstep): ');
+istep=input('Load step [Default: nstep]: ');
 if length(istep)==0; istep=nstep; end
-istrain=input('Strain (1-ex, 2-ey, 3-gxy) (default=1): ');
+istrain=input('Strain (1-ex, 2-ey, 3-gxy) [Default: 1]: ');
 if length(istrain)==0; istrain=1; end
-scale=input('Scale (default=1): ');
+scale=input('Scale [Default: 1]: ');
 if length(scale)==0; scale=1; end
 load_step=istep
 u=St(1:2:neq,istep+1);
