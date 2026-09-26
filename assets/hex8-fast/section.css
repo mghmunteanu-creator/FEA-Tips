@@ -1,0 +1,14 @@
+.hex8fast-page .scientific-article,.hex8fast-page .article-layout { min-width:0; }
+.hex8fast-page .hex8fast-table-wrap { max-width:100%; overflow-x:auto; }
+.hex8fast-page table { width:100%; }
+.hex8fast-page caption { text-align:left; margin:12px 0; font:13px var(--font-sans); }
+.hex8fast-page .hex8fast-figure { width:85%; margin:1.5rem auto; }
+.hex8fast-page .hex8fast-figure-panel { border:3px double #d7d6d0; padding:12px; background:#fff; }
+.hex8fast-page .hex8fast-figure img { display:block; width:100%; height:auto; }
+.hex8fast-page .chapter-navigation>span { text-align:right; }
+@media(max-width:720px) {
+ .hex8fast-page .hex8fast-figure { width:100%; }
+ .hex8fast-page .download-card { grid-template-columns:auto minmax(0,1fr); }
+ .hex8fast-page .download-action { grid-column:2; }
+ .hex8fast-page .download-card strong { overflow-wrap:anywhere; }
+}

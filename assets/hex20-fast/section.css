@@ -1,0 +1,4 @@
+.hex20fast-page .scientific-article code {overflow-wrap:anywhere;}
+.hex20fast-page .code-block code {overflow-wrap:normal;}
+.hex20fast-page .result-table td:first-child {min-width:160px;}
+.hex20fast-page .result-table th {vertical-align:bottom;}

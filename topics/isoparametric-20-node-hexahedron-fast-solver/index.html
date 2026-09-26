@@ -1,0 +1,216 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="/assets/index-DuzqIIgT.css" data-rsc-css-href="/assets/index-DuzqIIgT.css" data-precedence="vite-rsc/importer-resources"/><title>25.4. Fast program for the 20-node isoparametric hexahedral finite element | FEA Tips</title><meta name="description" content="Two fast HEX20 implementations: vectorization, performance, PCG and memory requirements."><meta property="og:title" content="FEA Tips — Finite Element Theory &amp; MATLAB Programs"/><meta property="og:description" content="Scientific notes, finite element formulations, worked examples, and MATLAB programs."/><meta property="og:type" content="website"/><meta property="og:image" content="https://fea-tips-munteanu.mgh-munteanu.chatgpt.site/og.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="FEA Tips — Finite Element Theory &amp; MATLAB Programs"/><meta name="twitter:description" content="Scientific notes, finite element formulations, worked examples, and MATLAB programs."/><meta name="twitter:image" content="https://fea-tips-munteanu.mgh-munteanu.chatgpt.site/og.png"/><link rel="shortcut icon" href="/favicon.svg"/><link rel="icon" href="/favicon.svg"/>
+<style id="fea-global-audit-1-16">
+/* Local Chapters 1–16 editorial/layout audit. */
+.scientific-article figcaption,
+.scientific-article .figure-group-caption {
+  font-size: 13px !important;
+  line-height: 1.32 !important;
+}
+.chapter-navigation[aria-label="Chapter navigation"] {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+  align-items: start !important;
+  column-gap: 24px !important;
+  width: 100% !important;
+}
+.chapter-navigation[aria-label="Chapter navigation"] > :first-child {
+  justify-self: start !important;
+  text-align: left !important;
+}
+.chapter-navigation[aria-label="Chapter navigation"] > :last-child {
+  justify-self: end !important;
+  text-align: right !important;
+}
+.assumption-grid:has(> :nth-child(4):last-child) {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+}
+@media (max-width: 720px) {
+  .chapter-navigation[aria-label="Chapter navigation"] {
+    grid-template-columns: 1fr !important;
+    row-gap: 14px !important;
+  }
+  .chapter-navigation[aria-label="Chapter navigation"] > :last-child {
+    justify-self: stretch !important;
+    text-align: right !important;
+  }
+  .chapter-navigation[aria-label="Chapter navigation"] a,
+  .chapter-navigation[aria-label="Chapter navigation"] > div {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+  }
+  .assumption-grid:has(> :nth-child(4):last-child) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+</style><link rel="stylesheet" href="/uniformization.css"/><link rel="stylesheet" href="/assets/hex8-fast/section.css"><link rel="stylesheet" href="/assets/hex20-fast/section.css"></head><body><style>
+        @font-face {
+          font-display: block;
+          font-family: KaTeX_AMS;
+          font-style: normal;
+          font-weight: 400;
+          src: url("/assets/KaTeX_AMS-Regular-BQhdFMY1.woff2") format("woff2"),
+               url("/assets/KaTeX_AMS-Regular-BQhdFMY1.woff2") format("woff2");
+        }
+        @font-face {
+          font-display: block;
+          font-family: KaTeX_Main;
+          font-style: normal;
+          font-weight: 400;
+          src: url("/assets/KaTeX_Main-Regular-B22Nviop.woff2") format("woff2"),
+               url("/assets/KaTeX_Main-Regular-B22Nviop.woff2") format("woff2");
+        }
+        @font-face {
+          font-display: block;
+          font-family: KaTeX_Main;
+          font-style: italic;
+          font-weight: 400;
+          src: url("/assets/KaTeX_Main-Italic-NWA7e6Wa.woff2") format("woff2"),
+               url("/assets/KaTeX_Main-Italic-NWA7e6Wa.woff2") format("woff2");
+        }
+        @font-face {
+          font-display: block;
+          font-family: KaTeX_Main;
+          font-style: normal;
+          font-weight: 700;
+          src: url("/assets/KaTeX_Main-Bold-Cx986IdX.woff2") format("woff2"),
+               url("/assets/KaTeX_Main-Bold-Cx986IdX.woff2") format("woff2");
+        }
+        @font-face {
+          font-display: block;
+          font-family: KaTeX_Math;
+          font-style: italic;
+          font-weight: 400;
+          src: url("/assets/KaTeX_Math-Italic-t53AETM-.woff2") format("woff2"),
+               url("/assets/KaTeX_Math-Italic-t53AETM-.woff2") format("woff2");
+        }
+        @font-face {
+          font-display: block;
+          font-family: KaTeX_Math;
+          font-style: italic;
+          font-weight: 700;
+          src: url("/assets/KaTeX_Math-BoldItalic-CZnvNsCZ.woff2") format("woff2"),
+               url("/assets/KaTeX_Math-BoldItalic-CZnvNsCZ.woff2") format("woff2");
+        }
+        @font-face {
+          font-display: block;
+          font-family: KaTeX_Size1;
+          font-style: normal;
+          font-weight: 400;
+          src: url("/assets/KaTeX_Size1-Regular-mCD8mA8B.woff2") format("woff2"),
+               url("/assets/KaTeX_Size1-Regular-mCD8mA8B.woff2") format("woff2");
+        }
+        @font-face {
+          font-display: block;
+          font-family: KaTeX_Size2;
+          font-style: normal;
+          font-weight: 400;
+          src: url("/assets/KaTeX_Size2-Regular-Dy4dx90m.woff2") format("woff2"),
+               url("/assets/KaTeX_Size2-Regular-Dy4dx90m.woff2") format("woff2");
+        }
+        @font-face {
+          font-display: block;
+          font-family: KaTeX_Size4;
+          font-style: normal;
+          font-weight: 400;
+          src: url("/assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2") format("woff2"),
+               url("/assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2") format("woff2");
+        }
+        .quad4-page .quad4-coordinates { max-width: 660px; }
+        .quad4-page .quad4-model { max-width: 700px; }
+        .quad4-page .quad4-result-grid {
+          display: grid;
+          grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+          gap: 0.85rem;
+          margin: 1.3rem 0 1.6rem;
+        }
+        .quad4-page .quad4-result-grid .figure { margin: 0; min-width: 0; }
+        .quad4-page .quad4-result-grid .figure img {
+          width: 100%;
+          aspect-ratio: 2.55 / 1;
+          object-fit: contain;
+          background: white;
+        }
+        .quad4-page .quad4-tau-figure {
+          max-width: 66%;
+          margin-inline: auto;
+        }
+        .quad4-page .result-lightbox-trigger {
+          display: block;
+          width: 100%;
+          padding: 0;
+          border: 0;
+          background: transparent;
+          cursor: zoom-in;
+        }
+        .quad4-page .result-lightbox-trigger:focus-visible {
+          outline: 2px solid var(--rust);
+          outline-offset: 3px;
+        }
+        .result-lightbox-overlay {
+          position: fixed;
+          inset: 0;
+          z-index: 1000;
+          display: grid;
+          place-items: center;
+          padding: 2.5vh 2.5vw;
+          background: rgba(7, 22, 34, 0.88);
+          cursor: zoom-out;
+        }
+        .result-lightbox-overlay[hidden] { display: none; }
+        .result-lightbox-image {
+          display: block;
+          max-width: 95vw;
+          max-height: 90vh;
+          width: auto;
+          height: auto;
+          object-fit: contain;
+          background: white;
+          box-shadow: 0 18px 70px rgba(0, 0, 0, 0.38);
+          cursor: default;
+        }
+        body.result-lightbox-open { overflow: hidden; }
+        .quad4-page .figure figcaption {
+          display: block;
+          width: 100%;
+          text-align: left !important;
+          text-align-last: left !important;
+          word-spacing: normal;
+          letter-spacing: normal;
+          white-space: normal;
+        }
+        .quad4-page .figure figcaption .math-inline,
+        .quad4-page .figure figcaption .math-inline span {
+          color: inherit;
+          font-weight: 400;
+          letter-spacing: normal;
+          margin-left: 0;
+          margin-right: 0;
+          word-spacing: normal;
+        }
+        .quad4-page .result-table {
+          border-collapse: collapse;
+          margin: 1.1rem 0 1.45rem;
+          width: 100%;
+        }
+        .quad4-page .result-table th,
+        .quad4-page .result-table td {
+          border: 1px solid var(--line);
+          padding: 0.7rem 0.85rem;
+          text-align: left;
+        }
+        .quad4-page .result-table th {
+          color: var(--navy);
+          font-family: var(--font-sans);
+        }
+        @media (max-width: 720px) {
+          .quad4-page .quad4-result-grid { grid-template-columns: 1fr; }
+          .quad4-page .quad4-result-grid .figure img { aspect-ratio: auto; }
+          .quad4-page .quad4-coordinates,
+          .quad4-page .quad4-model { max-width: 100%; }
+        }
+      </style><header class="site-header"><div class="page-shell header-inner"><a href="/" class="brand" aria-label="FEA Tips home"><span class="brand-mark" aria-hidden="true"><span class="brand-mesh"><span></span><span></span><span></span><span></span></span></span><span><strong>FEA Tips</strong><small>Finite Element Theory &amp; MATLAB Programs</small></span></a><nav aria-label="Primary navigation"><a href="/#contents">Contents</a><a href="/introduction">Introduction</a><a href="/nomenclature-conventions">Nomenclature</a></nav></div></header><main class="article-main quad4-page hex8fast-page hex20fast-page"><div class="page-shell breadcrumb"><a href="/#contents">Contents</a><span>/</span><span>Section 25.4</span></div><header class="article-hero"><div class="page-shell"><p class="article-kicker">Section 25.4 of Chapter 25: Hexahedral isoparametric finite element. Linear case</p><h1>Fast program for the 20-node isoparametric hexahedral finite element</h1></div></header><div class="page-shell article-layout"><aside class="article-toc"><div class="toc-chapter"><span>Section 25.4</span><strong>Fast program for the 20-node isoparametric hexahedral finite element</strong></div><p>On this page</p><ol><li><a href="#introduction"><span>01</span>Introduction</a></li><li><a href="#element-vectorization"><span>02</span>Vectorization over all elements</a></li><li><a href="#full-vectorization"><span>03</span>Full vectorization</a></li><li><a href="#benchmark"><span>04</span>Benchmark example</a></li><li><a href="#pcg"><span>05</span>Preconditioned conjugate gradient solution</a></li><li><a href="#memory"><span>06</span>Memory requirements</a></li><li><a href="#downloads"><span>07</span>Programs</a></li></ol></aside><article class="scientific-article"><section id="introduction"><p class="section-number">01</p><h2>Introduction</h2><p><code>brick3d_20_fast</code> and <code>brick3d_20_fast_full</code> are accelerated, vectorized versions of the standard HEX20 program from <a href="/topics/hexahedral-20-node-isoparametric">Section 25.3</a>. The approach continues the vectorization of the HEX8 program presented in <a href="/topics/isoparametric-8-node-hexahedron-fast-solver">Section 25.2</a>.</p><p>The first version is vectorized over all finite elements while retaining a loop over the 27 Gauss points. The fully vectorized version processes all elements and all 27 Gauss points simultaneously.</p></section><section id="element-vectorization"><p class="section-number">02</p><h2>Vectorization over all elements</h2><p><code>brick3d_20_fast</code> vectorizes the operations over all elements and retains only the short loop over the 27 Gauss points. At each Gauss point, <code>shape20</code> evaluates the interpolation-function derivatives. The Jacobians, inverse Jacobians and strain–displacement matrices are then computed for all elements together.</p><p><code>multiprod</code> performs the page-wise matrix products, including <span class="math-inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="bold-italic">B</mi><mi>T</mi></msup><mi mathvariant="bold-italic">D</mi><mi mathvariant="bold-italic">B</mi></mrow><annotation encoding="application/x-tex">\boldsymbol B^T\boldsymbol D\boldsymbol B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.9173em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right:0.0483em;">B</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9173em;"><span style="top:-3.139em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1389em;">T</span></span></span></span></span></span></span></span><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right:0.0319em;">D</span></span></span><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right:0.0483em;">B</span></span></span></span></span></span></span>. Global assembly uses MATLAB <code>sparse</code>. This version provides a good compromise between computational speed and memory requirements.</p></section><section id="full-vectorization"><p class="section-number">03</p><h2>Full vectorization</h2><p><code>brick3d_20_fast_full</code> evaluates the shape-function derivatives directly in vectorized form and processes all 27 Gauss points and all elements simultaneously, without a Gauss-point loop. Large multidimensional arrays are required. This version was developed mainly as a speed/memory benchmark.</p><p>A straightforward full vectorization would require forming the <span class="math-inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>60</mn><mo>×</mo><mn>60</mn></mrow><annotation encoding="application/x-tex">60\times60</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">60</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.6444em;"></span><span class="mord">60</span></span></span></span></span> matrices <span class="math-inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="bold-italic">B</mi><mi>T</mi></msup><mi mathvariant="bold-italic">D</mi><mi mathvariant="bold-italic">B</mi></mrow><annotation encoding="application/x-tex">\boldsymbol B^T\boldsymbol D\boldsymbol B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.9173em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right:0.0483em;">B</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9173em;"><span style="top:-3.139em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1389em;">T</span></span></span></span></span></span></span></span><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right:0.0319em;">D</span></span></span><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right:0.0483em;">B</span></span></span></span></span></span></span> simultaneously for all Gauss points and all elements, leading to very large temporary arrays. To reduce memory requirements, the present implementation first integrates weighted products of the Cartesian derivatives of the shape functions, forming <span class="math-inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>20</mn><mo>×</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">20\times20</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">20</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.6444em;"></span><span class="mord">20</span></span></span></span></span> matrices, and then assembles the <span class="math-inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>60</mn><mo>×</mo><mn>60</mn></mrow><annotation encoding="application/x-tex">60\times60</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">60</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.6444em;"></span><span class="mord">60</span></span></span></span></span> element stiffness matrices from the derivative-product terms, only six of which need to be computed explicitly.</p></section><section id="benchmark"><p class="section-number">04</p><h2>Benchmark example</h2><p>The same cantilever problem as in <a href="/topics/hexahedral-8-node-isoparametric">Section 25.1</a> and <a href="/topics/hexahedral-20-node-isoparametric">Section 25.3</a> is used. Two meshes are considered:</p><div class="hex8fast-table-wrap"><table class="result-table"><caption>Meshes used for the comparison.</caption><thead><tr><th>Mesh</th><th>Elements</th><th>Nodes</th><th>Equations</th></tr></thead><tbody><tr><td><span class="math-inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>30</mn><mo>×</mo><mn>10</mn><mo>×</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">30\times10\times10</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">30</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">10</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.6444em;"></span><span class="mord">10</span></span></span></span></span></td><td>3 000</td><td>14 201</td><td>42 603</td></tr><tr><td><span class="math-inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>40</mn><mo>×</mo><mn>20</mn><mo>×</mo><mn>15</mn></mrow><annotation encoding="application/x-tex">40\times20\times15</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">40</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">20</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.6444em;"></span><span class="mord">15</span></span></span></span></span></td><td>12 000</td><td>53 251</td><td>159 753</td></tr></tbody></table></div><figure class="figure hex8fast-figure" id="figure-1"><div class="hex8fast-figure-panel"><img src="/assets/hex20-fast/figure-1.png" alt="Coarse HEX20 cantilever mesh with constraints and loading" loading="lazy"></div><figcaption><strong>Figure 1.</strong> Coarse mesh: <span class="math-inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>30</mn><mo>×</mo><mn>10</mn><mo>×</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">30\times10\times10</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">30</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">10</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.6444em;"></span><span class="mord">10</span></span></span></span></span> HEX20 elements.</figcaption></figure><div class="hex8fast-table-wrap"><table class="result-table"><caption>Table 1. Coarse mesh — standard and fast programs.</caption><thead><tr><th>Program</th><th>Generation and<br>assembly [s]</th><th>Linear-system<br>solution [s]</th></tr></thead><tbody><tr><td>Standard HEX20</td><td>≈ 41.31</td><td>≈ 5.84</td></tr><tr><td><code>brick3d_20_fast</code></td><td>3.941</td><td>4.952</td></tr><tr><td><code>brick3d_20_fast_full</code></td><td>0.938</td><td>4.767</td></tr></tbody></table></div><div class="hex8fast-table-wrap"><table class="result-table"><caption>Table 2. Fine mesh — standard, fast and PCG results.</caption><thead><tr><th>Program / solver</th><th>Generation and<br>assembly [s]</th><th>Linear-system<br>solution [s]</th></tr></thead><tbody><tr><td>Standard HEX20</td><td>596.964</td><td>139.121</td></tr><tr><td><code>brick3d_20_fast</code></td><td>17.761</td><td>146.881</td></tr><tr><td><code>brick3d_20_fast_full</code></td><td>≈ 4.6–4.9</td><td>145.980</td></tr><tr><td><code>brick3d_20_fast_full</code><br>+ <code>ichol</code> + <code>pcg</code></td><td>≈ 4.6–4.9</td><td>≈ 18–19</td></tr></tbody></table></div><p>Once the element operations and assembly are strongly accelerated, the solution of the global linear system becomes the dominant computational cost.</p></section><section id="pcg"><p class="section-number">05</p><h2>Preconditioned conjugate gradient solution</h2><p>The same preconditioned conjugate-gradient approach as in <a href="/topics/isoparametric-8-node-hexahedron-fast-solver">Section 25.2</a> is used for the larger HEX20 system. When the iterative solution is used, the following <code>ichol</code> + <code>pcg</code> sequence replaces <code>S=K\F;</code> in the program:</p><div class="code-block" data-matlab-snippet><div class="code-titlebar"><span>Incomplete Cholesky and PCG</span><button type="button" data-copy-matlab>Copy</button></div><pre><code>opts.type    = 'ict';
+opts.droptol = 1e-3;
+
+L = ichol(K,opts);
+[S,flag,relres,iter] = pcg(K,F,1e-6,200,L,L');</code></pre></div></section><section id="memory"><p class="section-number">06</p><h2>Memory requirements</h2><p><code>brick3d_20_fast</code> is the preferred general-purpose version because it provides a good compromise between speed and memory usage. <code>brick3d_20_fast_full</code> is faster, but requires substantially more memory because all elements and all Gauss points are processed simultaneously.</p><p>For the fine mesh with 12 000 HEX20 elements, arrays such as <code>Bt</code>, <code>kel</code>, <code>H</code>, <code>xyzel_all</code>, <code>br</code> and the global assembly index arrays may together require several gigabytes of working memory. The estimated peak working-memory requirement is approximately 2.5–4 GB, depending on MATLAB temporary arrays and sparse-assembly overhead.</p></section><section id="downloads"><p class="section-number">07</p><h2>Programs</h2><p>Use either fast routine in place of <code>brick3d_20</code> with the input and plotting routines from <a href="/topics/hexahedral-20-node-isoparametric">Section 25.3</a>. <code>brick3d_20_fast.m</code> requires both <code>shape20.m</code> and <code>multiprod.m</code>. <code>brick3d_20_fast_full.m</code> does not require <code>shape20.m</code>; it requires only <code>multiprod.m</code>. Both downloadable routines use the direct solution <code>S=K\F;</code> by default; for large systems, this line may be replaced by the <code>ichol</code> + <code>pcg</code> sequence shown above.</p><div class="download-list"><a class="download-card" href="/downloads/isoparametric-20-node-hexahedron-fast-solver/brick3d_20_fast.m" download><span class="download-icon">M</span><span><strong>MATLAB — brick3d_20_fast.m</strong><small>HEX20 vectorization over all elements; 27-point integration loop.</small></span><span class="download-action">Download M</span></a></div><div class="download-list"><a class="download-card" href="/downloads/isoparametric-20-node-hexahedron-fast-solver/brick3d_20_fast_full.m" download><span class="download-icon">M</span><span><strong>MATLAB — brick3d_20_fast_full.m</strong><small>HEX20 full vectorization over all elements and Gauss points.</small></span><span class="download-action">Download M</span></a></div><div class="download-list"><a class="download-card" href="/downloads/isoparametric-20-node-hexahedron-fast-solver/multiprod.m" download><span class="download-icon">M</span><span><strong>MATLAB — multiprod.m</strong><small>Multiple matrix products; authorship and comments preserved.</small></span><span class="download-action">Download M</span></a></div><p><code>multiprod.m</code> is third-party code by Paolo de Leva and Jinhui Bai; see <a href="/topics/cst-fast-matlab-solver">Section 9.2</a> and <a href="/topics/isoparametric-4-node-quadrilateral-fast-solver">Section 9.5</a> for source and licensing information.</p><p>The two fast HEX20 programs presented in this section were developed with assistance from Chiara.</p></section><nav class="chapter-navigation" aria-label="Chapter navigation"><a href="/topics/hexahedral-20-node-isoparametric"><small>PREVIOUS SECTION</small><strong>← 25.3. Hexahedral 20-node isoparametric finite element for linear analysis</strong></a><span><small>NEXT CHAPTER · PLANNED</small><strong>26. Total Lagrangian formulation (TL). Isoparametric 8-node hexahedral finite element →</strong></span></nav></article></div></main><footer class="site-footer"><div class="page-shell footer-inner"><div><strong>FEA Tips</strong><p>Finite element theory, numerical methods, and MATLAB programs.</p></div><div class="footer-links"><a href="/">Home</a><a href="/#contents">Contents</a><a href="/nomenclature-conventions">Nomenclature</a><a href="/topics/large-displacements-2d-truss">Section 1.1</a></div><p class="copyright">© 2026 Mircea Gh. Munteanu</p></div></footer><script src="/result-lightbox.js" defer></script><script src="/matlab-copy.js" defer></script><!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9f2537b421954f8ba48bf04273eb0fba"}'></script><!-- End Cloudflare Web Analytics --></body></html>

@@ -1,0 +1,15 @@
+.hex8-page .assumption-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+.hex8-page .hex8-figure-panel { border:1px solid #d7d6d0; background:#fff; padding:12px; }
+.hex8-page .hex8-figure-panel img { display:block; width:100%; height:auto; }
+.hex8-page .hex8-comparison { display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:14px; }
+.hex8-page .hex8-software { font:12px var(--font-sans); text-align:center; margin:0 0 10px; }
+.hex8-page .hex8-enlarge { display:block; background:white; border:0; padding:0; width:100%; cursor:zoom-in; }
+.hex8-page #figure-2 { width:68%; }
+.hex8-page :is(#element,#coordinates,#strains,#matrix-b) .math-display,
+.hex8-page :is(#element,#coordinates,#strains,#matrix-b) .katex-display { overflow:visible; }
+.hex8-page .math-display .katex-display { margin:0; }
+@media(max-width:720px) {
+ .hex8-page #figure-2 { width:100%; }
+ .hex8-page .hex8-comparison { grid-template-columns:1fr; }
+ .hex8-page .hex8-comparison>div { width:80%; margin:auto; }
+}
