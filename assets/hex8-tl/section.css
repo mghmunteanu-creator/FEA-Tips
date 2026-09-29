@@ -1,0 +1,23 @@
+.hex8tl-page .assumption-grid {grid-template-columns:repeat(3,minmax(0,1fr));}
+.hex8tl-page .scientific-article,.hex8tl-page .article-layout {min-width:0;}
+.hex8tl-page .math-display {max-width:100%;overflow-x:auto;}
+.hex8tl-page .tl-wide-H {font-size:.82em;}
+.hex8tl-page .figure {width:85%;margin:1.5rem auto;}
+.hex8tl-page .tl-figure-panel {background:#fff;border:1px solid #d7d6d0;padding:10px;}
+.hex8tl-page .tl-figure-panel.tl-3d {border:3px double #d7d6d0;}
+.hex8tl-page .tl-figure-panel img {width:100%;height:auto;display:block;}
+.hex8tl-page #figure-1 {width:63.75%;}
+.hex8tl-page #figure-3 {width:74.8%;max-width:528px;}
+.hex8tl-page .tl-interactive {width:100%;}
+.hex8tl-page iframe {width:100%;height:530px;display:block;border:0;}
+.hex8tl-page .chapter-navigation>span {text-align:right;}
+@media(max-width:720px){
+ .hex8tl-page .assumption-grid {grid-template-columns:1fr;}
+ .hex8tl-page .figure {width:100%;}
+ .hex8tl-page #figure-1 {width:75%;}
+ .hex8tl-page #figure-3 {width:88%;}
+ .hex8tl-page iframe {height:470px;}
+ .hex8tl-page .download-card {grid-template-columns:auto minmax(0,1fr);}
+ .hex8tl-page .download-action {grid-column:2;}
+ .hex8tl-page .download-card strong {overflow-wrap:anywhere;}
+}
