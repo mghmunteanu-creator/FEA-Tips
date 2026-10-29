@@ -1,0 +1,29 @@
+.hex8ul-page .article-layout,.hex8ul-page .scientific-article{min-width:0}
+.hex8ul-page .assumption-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.hex8ul-page .math-display{max-width:100%;overflow-x:auto}
+.hex8ul-page .matlab-snippet{margin:1.5rem 0 2rem;max-width:100%;border:1px solid #d8d4cb;background:#fff}
+.hex8ul-page .matlab-snippet-header{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.65rem 1rem;background:#f2efe8;font:13px Arial,sans-serif}
+.hex8ul-page .matlab-copy{border:1px solid #9aa9b2;padding:.35rem .75rem;background:#fff;color:#13364b;cursor:pointer}
+.hex8ul-page pre{margin:0;padding:1rem;overflow:auto;font-size:14px;line-height:1.65;max-width:100%}
+.hex8ul-page p code{overflow-wrap:anywhere}
+.hex8ul-page .figure{width:min(100%,600px);margin:1.5rem auto}
+.hex8ul-page .ul-panel{background:#fff;border:1px solid #d7d6d0;padding:8px}
+.hex8ul-page .ul-3d .ul-panel{border:3px double #d7d6d0}
+.hex8ul-page .ul-panel img{display:block;width:100%;height:auto;margin:0;border:0}
+.hex8ul-page figcaption{margin-top:.55rem}
+.hex8ul-page figcaption .math-inline,.hex8ul-page figcaption .math-inline span{margin-right:0;font-weight:400;color:inherit}
+.hex8ul-page .ul-figure-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem;align-items:start}
+.hex8ul-page .ul-figure-pair .figure{width:100%}
+.hex8ul-page .ul-enlarge{padding:0;border:0;background:#fff;display:block;width:100%;cursor:zoom-in}
+.hex8ul-page .ul-interactive{width:min(100%,627.9px);max-width:627.9px}
+.hex8ul-page .ul-interactive .ul-panel{padding:0}
+.hex8ul-page iframe{width:100%;height:408.25px;display:block;border:0}
+.hex8ul-page .ul-table-wrap{overflow-x:auto}
+.hex8ul-page .result-table{width:100%;border-collapse:collapse;margin:1.25rem 0}
+.hex8ul-page .result-table th,.hex8ul-page .result-table td{padding:.7rem .9rem;border:1px solid #d5d0c5;text-align:center}
+.hex8ul-page .result-table th{background:#f2efe8;text-transform:none;letter-spacing:normal}
+.hex8ul-page .chapter-navigation>span{text-align:right}
+.ul-lightbox{position:fixed;inset:0;background:rgba(8,28,43,.88);z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+.ul-lightbox img{max-width:95vw;max-height:92vh;object-fit:contain;background:#fff}
+.ul-lightbox button{position:absolute;right:18px;top:12px;font:28px Arial;color:#fff;border:0;background:transparent;cursor:pointer}
+@media(max-width:720px){.hex8ul-page .assumption-grid{grid-template-columns:1fr}.hex8ul-page .ul-figure-pair{grid-template-columns:1fr}.hex8ul-page .download-card{grid-template-columns:auto minmax(0,1fr)}.hex8ul-page .download-action{grid-column:2}.hex8ul-page .download-card strong{overflow-wrap:anywhere}.hex8ul-page iframe{height:402.5px}.hex8ul-page .result-table th,.hex8ul-page .result-table td{padding:.6rem .45rem}}

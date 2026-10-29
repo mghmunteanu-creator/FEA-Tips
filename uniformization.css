@@ -36,3 +36,8 @@ article :is(p, li, td, figcaption, blockquote) a:not(:where(nav a, .download-car
 @media (max-width: 600px) {
   .uniform-lightbox-trigger { max-width: 80%; }
 }
+
+/* Mathematical typography requested for the whole site, 28 October 2026. */
+.katex .fea-math-bold-italic .mathit{font-weight:700;font-style:italic}
+.katex .mathbb,.katex .mathcal{font-style:italic}
+.katex .fea-numeral{font-family:KaTeX_Main!important;font-style:normal!important}
