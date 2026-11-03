@@ -221,7 +221,7 @@ bx=reshape(permute(br4(1,:,:,:),[3 2 4 1]),27,20,nel);
 by=reshape(permute(br4(2,:,:,:),[3 2 4 1]),27,20,nel);
 bz=reshape(permute(br4(3,:,:,:),[3 2 4 1]),27,20,nel);
 
-W=bsxfun(@times,wg(:),abs(reshape(detJ,27,nel)));
+W=bsxfun(@times,wg(:),reshape(detJ,27,nel));
 W3=reshape(W,27,1,nel);
 
 % Weighted derivative products:

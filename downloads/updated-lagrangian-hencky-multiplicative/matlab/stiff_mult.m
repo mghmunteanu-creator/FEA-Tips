@@ -67,7 +67,7 @@ for ie=1:nel;
         J =H*[xel  yel ];       % beginning of current load step
         Jt=H*[xelt yelt];       % current trial configuration
 
-        detJ=abs(det(J));
+        detJ=det(J);
 
         %------------------------------------------------------------------
         % Derivatives referred to the initial configuration

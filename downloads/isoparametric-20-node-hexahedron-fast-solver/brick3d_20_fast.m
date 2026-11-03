@@ -127,7 +127,7 @@ for j=1:27
     kg=multiprod(permute(B,[2 1 3]),DB);
 
     % Gauss contribution
-    detJ3=reshape(abs(detJ),1,1,nel);
+    detJ3=reshape(detJ,1,1,nel);
     kel=kel+wg(j)*bsxfun(@times,kg,detJ3);
 end
 

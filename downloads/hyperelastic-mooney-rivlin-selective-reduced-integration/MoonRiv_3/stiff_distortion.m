@@ -16,7 +16,7 @@ for i=1:nel;
         H=[(1+t)/4  -(1+t)/4  -(1-t)/4  (1-t)/4
            (1+s)/4   (1-s)/4  -(1-s)/4 -(1+s)/4]; 	
         J=H*[ xel    yel];                           % Jacobian
-        detJ=abs(det(J));
+        detJ=det(J);
         J1=inv(J);
         b=J1*H;
         

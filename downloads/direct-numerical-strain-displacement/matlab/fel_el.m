@@ -16,7 +16,7 @@ for j=1:4
 
     % Jacobian at the beginning of the current load step
     J=H*[xel yel];
-    detJ=abs(det(J));
+    detJ=det(J);
 
     ig=4*(ie-1)+j;
     Fp=Fprev(:,:,ig,istep);

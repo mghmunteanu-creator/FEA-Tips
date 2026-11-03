@@ -29,7 +29,7 @@ for ie=1:nel;
         H=[(1+t)/4  -(1+t)/4  -(1-t)/4  (1-t)/4
            (1+s)/4   (1-s)/4  -(1-s)/4 -(1+s)/4]; 	
         J=H*[ xel    yel];              % Jacobian
-        detJ=abs(det(J));
+        detJ=det(J);
         J1=inv(J);
         b=J1*H;
         Bux=[b(1,1)  0        b(1,2)   0        b(1,3)   0        b(1,4)   0     ];

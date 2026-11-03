@@ -70,7 +70,7 @@ for ie=1:nel
 
         J0=H*[xel0 yel0];
 
-        detJ=abs(det(J0));
+        detJ=det(J0);
 
         J1=inv(J0);
         b=J1*H;
