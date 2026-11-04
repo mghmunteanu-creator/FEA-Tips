@@ -134,7 +134,7 @@ for j=1:4
     H=[(1+t)/4  -(1+t)/4  -(1-t)/4  (1-t)/4
        (1+s)/4   (1-s)/4  -(1-s)/4 -(1+s)/4];
     J=H*[xdel ydel];                  % Jacobian
-    detJ=abs(det(J));
+    detJ=det(J);
     J1=inv(J);
     b=J1*H;
 
