@@ -1,0 +1,21 @@
+.contact-main{max-width:860px;padding-top:60px;padding-bottom:64px;color:#143044}
+.contact-main h1{font:500 clamp(34px,5vw,54px)/1.12 Georgia,serif;margin:14px 0 20px}
+.contact-intro{font:20px/1.5 Georgia,serif;margin-bottom:30px}
+#contact-form{background:#fff;border:1px solid #d6d3cb;padding:30px;font:16px/1.6 Arial,sans-serif}
+#required-note{margin:0 0 20px;color:#52616a;font-size:14px}
+.contact-row{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+#contact-form label{display:block;font-weight:600;margin-bottom:7px}
+#contact-form input:not([type=checkbox]),#contact-form textarea{width:100%;box-sizing:border-box;border:1px solid #8a979f;border-radius:0;padding:12px;color:#143044;background:#fff;font:16px/1.5 Arial,sans-serif;margin-bottom:22px}
+#contact-form textarea{resize:vertical;min-height:160px}
+#contact-form :focus-visible{outline:3px solid #1769aa;outline-offset:3px}
+#contact-privacy{font-size:14px;color:#465b68;margin:0 0 20px}
+#contact-privacy a{color:#1769aa;text-decoration:underline}
+#contact-form .contact-consent{display:flex;gap:10px;font-size:14px;font-weight:400;align-items:flex-start;margin-bottom:22px}
+.contact-consent input{width:18px;height:18px;flex:none;margin:3px 0}
+#contact-submit{border:1px solid #143044;background:#143044;color:white;padding:13px 24px;font:600 16px/1.4 Arial,sans-serif;cursor:pointer;min-height:48px}
+#contact-submit:disabled{opacity:.65;cursor:wait}
+#contact-status{margin:18px 0 0;min-height:1.6em;font-size:15px}
+#contact-status[data-state=error]{color:#9b2929}
+#contact-status[data-state=success]{color:#24643c}
+.contact-trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+@media(max-width:600px){.contact-main{padding-top:32px;padding-bottom:36px}.contact-row{grid-template-columns:1fr;gap:0}#contact-form{padding:20px}#contact-submit{width:100%}}
